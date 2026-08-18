@@ -22,7 +22,57 @@
 5. Export data theo đúng định dạng file JSON được yêu cầu trong phần Format
    data.
 
-## III./ Các vấn đề cần giải quyết
+## III./ Yêu cầu về sản lượng và chất lượng dữ liệu
+
+### 1./ Mục tiêu và tiến độ
+
+| Yêu cầu | Chỉ tiêu |
+|---|---:|
+| Tổng số lượng dữ liệu cần crawl | **500 giờ/người** |
+| Thời gian hoàn thành | **7 tuần** |
+| Trung bình mỗi tuần | Khoảng **72 giờ/tuần** |
+| Trung bình mỗi ngày | Khoảng **15 giờ/ngày** nếu làm việc 5 ngày/tuần |
+
+500 giờ trong 7 tuần tương đương khoảng 71,4 giờ mỗi tuần. Vì vậy, mục tiêu
+thực tế được làm tròn thành 72 giờ/tuần, tương đương khoảng 14,4–15 giờ/ngày
+nếu tính theo 5 ngày làm việc mỗi tuần.
+
+### 2./ Yêu cầu về nội dung
+
+- Nội dung audio phải là **tiếng Việt**.
+- Ưu tiên speech rõ ràng, tự nhiên và dễ nghe.
+- Không lấy video chỉ có music hoặc speech bị lẫn nhạc nền.
+- Hạn chế audio có quá nhiều noise, speech bị rè, nhỏ hoặc không rõ.
+- Audio sau khi xử lý phải phù hợp để sử dụng làm speech dataset.
+
+### 3./ Yêu cầu về tính duy nhất và nguồn dữ liệu
+
+- Không crawl trùng video hoặc trùng audio.
+- Mỗi audio phải có mapping tới link nguồn ban đầu.
+- Link nguồn có thể là video, reel hoặc audio gốc.
+- Thông tin mapping phải đủ để truy ngược từ file audio về nội dung nguồn.
+
+### 4./ Yêu cầu về keyword
+
+- Phải crawl đúng theo keywords được assign.
+- Nếu sử dụng keyword khác, vẫn phải ưu tiên audio có speech tiếng Việt rõ
+  ràng, tự nhiên và không có nhạc nền.
+- Cần lưu lại keyword đã dùng để tìm thấy từng audio.
+
+### 5./ Checklist kiểm tra dữ liệu
+
+Trước khi tính một audio vào tổng số giờ hoàn thành, cần kiểm tra:
+
+- [ ] Audio có nội dung tiếng Việt.
+- [ ] Speech rõ ràng và tự nhiên.
+- [ ] Không có music hoặc nhạc nền.
+- [ ] Noise ở mức chấp nhận được.
+- [ ] Không trùng video/audio đã thu thập.
+- [ ] Có link nguồn gốc.
+- [ ] Có mapping với keyword tìm kiếm.
+- [ ] File đúng định dạng WAV, 16 kHz, mono.
+
+## IV./ Các vấn đề cần giải quyết
 
 Code baseline chỉ cung cấp các chức năng cơ bản. Các bạn cần giải quyết những
 vấn đề sau:
