@@ -1,5 +1,40 @@
 # Facebook & TikTok Audio Crawler
 
+## Mục tiêu
+
+Mục tiêu của project là xây dựng và hoàn thiện một pipeline thu thập dữ liệu
+speech tiếng Việt từ Facebook và TikTok theo các keywords được assign.
+
+Sau khi hoàn thành project, mỗi thành viên cần đạt được các mục tiêu sau:
+
+1. Tìm kiếm và thu thập video/reel có nội dung tiếng Việt liên quan đến
+   keywords được giao.
+2. Download và chuyển đổi audio về cùng một định dạng chuẩn:
+
+   ```text
+   Format:      WAV
+   Sample rate: 16 kHz (16.000 Hz)
+   Channels:    1 (mono)
+   ```
+
+3. Bảo đảm dữ liệu có speech rõ ràng, tự nhiên, ít noise và không có music hoặc
+   nhạc nền.
+4. Loại bỏ video/audio trùng lặp, kể cả khi một nội dung được tìm thấy từ nhiều
+   keywords khác nhau.
+5. Lưu metadata và mapping để mỗi file audio có thể truy ngược về keyword và
+   link video/reel/audio gốc.
+6. Xây dựng cơ chế xử lý lỗi và tiếp tục crawl khi chương trình bị gián đoạn,
+   thay vì phải chạy lại từ đầu.
+7. Hỗ trợ download song song có kiểm soát mà không làm hỏng metadata hoặc trạng
+   thái của pipeline.
+8. Hoàn thành tối thiểu **500 giờ dữ liệu hợp lệ/người trong 7 tuần**.
+9. Viết tài liệu mô tả giải pháp, các bước post-processing và lý do lựa chọn
+   từng phương pháp làm sạch audio.
+
+Kết quả cuối cùng không chỉ là các file audio đã download, mà phải là một bộ dữ
+liệu speech tiếng Việt sạch, đúng format, không trùng lặp và có đầy đủ thông tin
+nguồn gốc.
+
 ## I./ Các công cụ sử dụng
 
 Đây là một số công cụ chung dùng để tìm kiếm keywords và download các audio:
