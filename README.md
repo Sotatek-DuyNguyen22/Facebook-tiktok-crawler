@@ -1,39 +1,53 @@
 # Facebook & TikTok Audio Crawler
 
+## Đề bài
+
+### Crawl dữ liệu từ Facebook và TikTok
+
+Mỗi bạn sẽ được assign từ **1–2 keywords** để crawl dữ liệu từ **Facebook
+Reels** hoặc **TikTok**.
+
+### Yêu cầu
+
+| Hạng mục | Yêu cầu |
+|---|---:|
+| Tổng số lượng dữ liệu cần crawl | **500 giờ/người** |
+| Thời gian hoàn thành | **7 tuần** |
+| Trung bình mỗi tuần | Khoảng **72 giờ/tuần** |
+| Trung bình mỗi ngày | Khoảng **15 giờ/ngày** |
+
+Yêu cầu đối với dữ liệu:
+
+- Nội dung phải là **tiếng Việt**.
+- Ưu tiên nội dung có speech rõ ràng, tự nhiên.
+- Không lấy video chỉ có music hoặc speech bị lẫn nhạc nền.
+- Hạn chế video có quá nhiều noise hoặc speech không rõ.
+- Không crawl trùng video hoặc trùng audio.
+- Mỗi audio phải có mapping tới link video, reel hoặc audio gốc.
+- Phải crawl đúng theo keywords được assign.
+- Nếu sử dụng keyword khác, audio vẫn phải có speech rõ ràng, tự nhiên và không
+  có nhạc nền.
+
 ## Mục tiêu
 
 Mục tiêu của project là xây dựng và hoàn thiện một pipeline thu thập dữ liệu
-speech tiếng Việt từ Facebook và TikTok theo các keywords được assign.
+speech tiếng Việt từ Facebook và TikTok.
 
-Sau khi hoàn thành project, mỗi thành viên cần đạt được các mục tiêu sau:
+Sau khi hoàn thành project, mỗi thành viên cần:
 
-1. Tìm kiếm và thu thập video/reel có nội dung tiếng Việt liên quan đến
-   keywords được giao.
-2. Download và chuyển đổi audio về cùng một định dạng chuẩn:
+1. Biết cách tìm kiếm video/reel theo keyword và download audio từ nội dung
+   nguồn.
+2. Chuẩn hóa toàn bộ audio về WAV, 16 kHz, mono.
+3. Xây dựng cơ chế phát hiện dữ liệu trùng, xử lý lỗi và tiếp tục crawl khi
+   chương trình bị gián đoạn.
+4. Xử lý song song có kiểm soát và bảo đảm metadata được ghi an toàn.
+5. Đánh giá và làm sạch audio để loại bỏ music, noise và speech không rõ.
+6. Lưu metadata để truy ngược mỗi file audio về keyword và link nguồn gốc.
+7. Export dữ liệu đúng Format data được yêu cầu.
+8. Viết tài liệu mô tả giải pháp và các bước post-processing audio.
 
-   ```text
-   Format:      WAV
-   Sample rate: 16 kHz (16.000 Hz)
-   Channels:    1 (mono)
-   ```
-
-3. Bảo đảm dữ liệu có speech rõ ràng, tự nhiên, ít noise và không có music hoặc
-   nhạc nền.
-4. Loại bỏ video/audio trùng lặp, kể cả khi một nội dung được tìm thấy từ nhiều
-   keywords khác nhau.
-5. Lưu metadata và mapping để mỗi file audio có thể truy ngược về keyword và
-   link video/reel/audio gốc.
-6. Xây dựng cơ chế xử lý lỗi và tiếp tục crawl khi chương trình bị gián đoạn,
-   thay vì phải chạy lại từ đầu.
-7. Hỗ trợ download song song có kiểm soát mà không làm hỏng metadata hoặc trạng
-   thái của pipeline.
-8. Hoàn thành tối thiểu **500 giờ dữ liệu hợp lệ/người trong 7 tuần**.
-9. Viết tài liệu mô tả giải pháp, các bước post-processing và lý do lựa chọn
-   từng phương pháp làm sạch audio.
-
-Kết quả cuối cùng không chỉ là các file audio đã download, mà phải là một bộ dữ
-liệu speech tiếng Việt sạch, đúng format, không trùng lặp và có đầy đủ thông tin
-nguồn gốc.
+Kết quả cuối cùng phải là một bộ dữ liệu speech tiếng Việt sạch, đúng format,
+không trùng lặp và có đầy đủ thông tin nguồn gốc.
 
 ## I./ Các công cụ sử dụng
 
@@ -57,44 +71,7 @@ nguồn gốc.
 5. Export data theo đúng định dạng file JSON được yêu cầu trong phần Format
    data.
 
-## III./ Yêu cầu về sản lượng và chất lượng dữ liệu
-
-### 1./ Mục tiêu và tiến độ
-
-| Yêu cầu | Chỉ tiêu |
-|---|---:|
-| Tổng số lượng dữ liệu cần crawl | **500 giờ/người** |
-| Thời gian hoàn thành | **7 tuần** |
-| Trung bình mỗi tuần | Khoảng **72 giờ/tuần** |
-| Trung bình mỗi ngày | Khoảng **15 giờ/ngày** nếu làm việc 5 ngày/tuần |
-
-500 giờ trong 7 tuần tương đương khoảng 71,4 giờ mỗi tuần. Vì vậy, mục tiêu
-thực tế được làm tròn thành 72 giờ/tuần, tương đương khoảng 14,4–15 giờ/ngày
-nếu tính theo 5 ngày làm việc mỗi tuần.
-
-### 2./ Yêu cầu về nội dung
-
-- Nội dung audio phải là **tiếng Việt**.
-- Ưu tiên speech rõ ràng, tự nhiên và dễ nghe.
-- Không lấy video chỉ có music hoặc speech bị lẫn nhạc nền.
-- Hạn chế audio có quá nhiều noise, speech bị rè, nhỏ hoặc không rõ.
-- Audio sau khi xử lý phải phù hợp để sử dụng làm speech dataset.
-
-### 3./ Yêu cầu về tính duy nhất và nguồn dữ liệu
-
-- Không crawl trùng video hoặc trùng audio.
-- Mỗi audio phải có mapping tới link nguồn ban đầu.
-- Link nguồn có thể là video, reel hoặc audio gốc.
-- Thông tin mapping phải đủ để truy ngược từ file audio về nội dung nguồn.
-
-### 4./ Yêu cầu về keyword
-
-- Phải crawl đúng theo keywords được assign.
-- Nếu sử dụng keyword khác, vẫn phải ưu tiên audio có speech tiếng Việt rõ
-  ràng, tự nhiên và không có nhạc nền.
-- Cần lưu lại keyword đã dùng để tìm thấy từng audio.
-
-### 5./ Checklist kiểm tra dữ liệu
+## III./ Checklist kiểm tra dữ liệu
 
 Trước khi tính một audio vào tổng số giờ hoàn thành, cần kiểm tra:
 
